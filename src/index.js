@@ -1,16 +1,9 @@
-//import _ from 'lodash';
 import './style.css';
 import './sidebar.css';
 import './content.css';
 import { format, compareAsc } from 'date-fns';
-//import { formatDistance, subDays } from 'date-fns';
 import { Project, myProjects } from './project';
 import { Todo, myTodos } from './todos';
-//import { values } from 'lodash';
-import { populateStorage, setStyles } from './localstorage';
-
-//formatDistance(subDays(new Date(), 3), new Date(), { addSuffix: true });
-
 
 export function component() {
   const container = document.querySelector('#container');
@@ -24,7 +17,6 @@ export function component() {
   const addProject = document.createElement('button');
   const projectBox = document.createElement('input');
   const displayProjectBox = document.createElement('div');
-  //const testProject = document.createElement('button');
   //attributes ====>
   sidebar.setAttribute('id', 'sidebar');
   createProjectBox.setAttribute('id', 'createProjectBox');
@@ -32,7 +24,6 @@ export function component() {
   projectBox.setAttribute('id', 'projectBox');
   projectBox.setAttribute('required', 'true');
   displayProjectBox.setAttribute('id', 'displayProjectBox');
-  //testProject.setAttribute('id', 'testProject');
   //<==== attributes
   //<==== sidebar DOM
 
@@ -43,6 +34,11 @@ export function component() {
   const createModal = document.createElement('div');
   const modalContent = document.createElement('div');
   const popModule = document.createElement('button');
+  const tabs = document.createElement('div');
+  const titleTab = document.createElement('span');
+  const descriptionTab = document.createElement('span');
+  const dateTab = document.createElement('span');
+  const projectTab = document.createElement('span');
   const addTask = document.createElement('button');
   const updateTask = document.createElement('button');
   const exitModule = document.createElement('span');
@@ -63,6 +59,7 @@ export function component() {
   createModal.setAttribute('id', 'myModal');
   modalContent.setAttribute('id', 'modal-content');
   popModule.setAttribute('id', 'popModule');
+  tabs.setAttribute('id', 'tabs');
   taskDescription.setAttribute('placeholder', 'Description');
   taskDescription.setAttribute('id', 'description');
   taskDescription.setAttribute('required', 'true');
@@ -82,7 +79,13 @@ export function component() {
   header.appendChild(title);
 
   content.appendChild(popModule);
+  content.appendChild(tabs);
   content.appendChild(createModal);
+
+  tabs.appendChild(titleTab);
+  tabs.appendChild(descriptionTab);
+  tabs.appendChild(dateTab);
+  tabs.appendChild(projectTab);
 
   createModal.appendChild(modalContent);
   modalContent.appendChild(exitModule);
@@ -99,14 +102,18 @@ export function component() {
   sidebar.appendChild(displayProjectBox);
   createProjectBox.appendChild(addProject);
   createProjectBox.appendChild(projectBox);
-  //displayProjectBox.appendChild(testProject);
+
+  titleTab.innerHTML = 'TITLE';
+  descriptionTab.innerHTML = 'DESCRIPTION';
+  dateTab.innerHTML = 'DATE';
+  projectTab.innerHTML = 'PROJECT';
 
   title.innerHTML = 'TODO-List';
   addProject.innerHTML = 'Add-Project';
   addTask.innerHTML = 'Add-Tasks';
   updateTask.innerHTML = 'Update';
   priorityOption.innerHTML = 'Choose --Project';
-  popModule.innerHTML = '+';
+  popModule.innerHTML = 'Create-Task';
   exitModule.innerHTML = 'X';
 
   function createOption() {
@@ -130,7 +137,6 @@ export function component() {
   const projectDivVal = [];
   function createTodoDivs2(e) {
     clearContent(todoContent);
-    //let e = document.getElementById('select');
     const values = parseFloat(projectDivVal);
     for (let i = 0; i < myProjects[values].storage.length; i++) {
       const todoDivs = document.createElement('div');
@@ -141,9 +147,7 @@ export function component() {
       todoDivs.innerHTML = `<span>${myProjects[values].storage[i].title}</span>
     <span>${myProjects[values].storage[i].description}</span>
     <span>${myProjects[values].storage[i].dueDate}</span> <span>${myProjects[values].storage[i].project}</span>`;
-
       todoDivs.setAttribute('id', 'todoDiv');
-      //todoDivs.setAttribute('data-book', i);
       todoContent.appendChild(todoDivs);
       todoDivs.appendChild(edit);
       todoDivs.appendChild(delBtn);
@@ -151,9 +155,6 @@ export function component() {
       edit.textContent = 'Edit';
       delBtn.textContent = 'Delete';
       delBtn.setAttribute('value', i);
-      // setAttr(edit);
-      //setAttr(delBtn);
-      //console.log(myProjects);
       edit.addEventListener('click', () => {
         modalContent.removeChild(modalContent.lastElementChild);
         modalContent.appendChild(updateTask);
@@ -162,7 +163,6 @@ export function component() {
         setAttr(edit);
         setAttr(delBtn);
         setAtr(todoDivs);
-        // projectDivVal.pop();
       });
 
       delBtn.addEventListener('click', (e) => {
@@ -183,20 +183,12 @@ export function component() {
     }
     clearContent(todoContent);
 
-
-
-    //let values2 = parseFloat(projectDivVal);
     projectDivVal.pop();
-    // projectDivVal.push(values);
-    //console.log(values); 
     for (let i = 0; i < myProjects[value2].storage.length; i++) {
       const todoDivs = document.createElement('div');
       const edit = document.createElement('button');
       const delBtn = document.createElement('button');
       todoDivs.setAttribute('id', 'todoDiv');
-      //todoDivs.classList.add('todos');
-      //todoContent.appendChild(todoDivs);
-      //todoContent.setAttribute('value', i);
       todoContent.appendChild(todoDivs);
       myProjects[value2].storage[i].dueDate = format(new Date(myProjects[value2].storage[i].dueDate), 'MM/dd/yyyy');
       todoDivs.innerHTML = `<span>${myProjects[value2].storage[i].title}</span>
@@ -205,12 +197,10 @@ export function component() {
       todoDivs.appendChild(edit);
       todoDivs.appendChild(delBtn);
       todoDivs.setAttribute('id', 'todoDiv');
-      //todoDivs.setAttribute('data-book', i);
       edit.textContent = 'Edit';
       delBtn.textContent = 'Delete';
       setAttr(edit);
       setAttr(delBtn);
-      //console.log(myProjects);
       edit.addEventListener('click', () => {
         modalContent.removeChild(modalContent.lastElementChild);
         modalContent.appendChild(updateTask);
@@ -219,7 +209,6 @@ export function component() {
         setAttr(edit);
         setAttr(delBtn);
         setAtr(todoDivs);
-
       });
 
       delBtn.addEventListener('click', (e) => {
@@ -235,11 +224,8 @@ export function component() {
             return false;
           }
         }
-        //console.log(document.getElementById('todoContent').children[0].children[3].childNodes[0].data);
-       // console.log(document.getElementById('displayProjectBox').children[0].children[1].attributes[0].value);
-
       });
-     }
+    }
   }
 
   function clearSidebar(displayProjectBox) {
@@ -248,30 +234,18 @@ export function component() {
     }
   }
 
-  //const projectVal = [];
   function createProjectDivs() {
     clearSidebar(displayProjectBox);
-    
-    /*if (myProjects.length === 1) {
-      localStorage.removeItem('projectNames')
-    }*/
-    //const projectContainer = document.createElement('div');
     for (let i = 0; i < myProjects.length; i++) {
-      
       const projectDiv = document.createElement('div');
       const projectDel = document.createElement('button');
       const projectShowTodos = document.createElement('button');
-
       content.appendChild(todoContent);
       displayProjectBox.appendChild(projectDiv);
       projectDiv.innerHTML = `<span>${myProjects[i].name}</span>`;
       projectDiv.setAttribute('id', 'projectDiv');
       const projectDivText = projectDiv.textContent;
-     // projectShowTodos.classList.add('displays');
       setName2(projectShowTodos);
-      // const userData = JSON.parse(localStorage.getItem('projectNames'));
-      //console.log(userData[i].name);
-      //projectDiv.innerHTML = `<span>${userData[i].name}</span>`;
       projectDiv.appendChild(projectDel);
       projectDel.textContent = 'Del';
       projectDiv.appendChild(projectShowTodos);
@@ -280,35 +254,13 @@ export function component() {
       projectShowTodos.setAttribute('value', i);
       projectShowTodos.setAttribute('id', 'show');
       projectDiv.setAttribute('name', i);
-      //projectDiv.setAttribute('id', i);
       projectDiv.classList.add('projectDiv');
-      //const projectDivs = document.querySelectorAll('.projectDiv');
       let value = document.getElementById('show').value;
       let values = parseFloat(value);
       projectDivVal.push(values);
-      //projectDiv.style.backgroundColor = 'white';
-     
-
-      //console.log(values);
-      /* projectDiv.addEventListener('click', (e) => {
-         if (event.currentTarget.style.backgroundColor === '') {
-         event.currentTarget.style.backgroundColor = 'blue';
-        projectVal.unshift(projectVal.pop(event.currentTarget.id));
-        projectDiv.style.backgroundColor = 'white';
-         createTodoDivs();
-         } else if(event.currentTarget.style.backgroundColor === 'blue') {
-           event.currentTarget.style.backgroundColor = 'white';
-           clearContent(todoContent);
-         }
-       })*/
       projectShowTodos.addEventListener('click', (e) => {
-        //setName2(projectShowTodos);
-        //projectDivVal.push(event.currentTarget.name);
         displayProjectTodos();
       });
-
-
-
       addProject.addEventListener('click', () => {
         if (document.getElementById('projectBox').value === '') {
           return false;
@@ -317,22 +269,16 @@ export function component() {
         const newProject = new Project(name);
         newProject.storeName();
         storeProjects();
-        // storeProjects();
-        //showProjects();
         createOption();
         createProjectDivs();
         newProject.showName();
-        //submitClick(event)
         document.getElementById('projectBox').value = '';
       });
-
       function removeProject(projectDiv) {
         if (projectDiv.parentNode) {
           projectDiv.parentNode.removeChild(projectDiv);
-          //newProject.removeName();
         }
       }
-
       projectDel.addEventListener('click', (e) => {
         const projectToPop = parseFloat(event.currentTarget.value);
         projectDivVal.push(projectToPop);
@@ -345,11 +291,8 @@ export function component() {
           if (selectOptions.options[i].textContent === projectDivText) {
             removeProject(projectDiv);
             selectOptions.remove(i);
-            //console.log(myProjects);
             myProjects.splice([projectToPop], 1);
             storeProjects();
-            //setName2(projectShowTodos);
-            console.log(myProjects);
             i--;
             createProjectDivs();
           }
@@ -357,11 +300,9 @@ export function component() {
       });
     }
   }
-/// LOCAL STORAGE FUNCTIONS
-
+  /// LOCAL STORAGE FUNCTIONS
   function showProjects() {
     const userData = JSON.parse(localStorage.getItem('projectNames'));
-    // const projectDiv = document.getElementById('projectDiv');
     if (!userData) {
       return false;
     }
@@ -371,22 +312,6 @@ export function component() {
       }
       const newProject = new Project(userData[i].name);
       newProject.storeName();
-    /*  const todoDivs = document.createElement('div');
-    const edit = document.createElement('button');
-    const delBtn = document.createElement('button');
-    delBtn.classList.add('delBtn');
-    edit.setAttribute('id', 'edit');
-    edit.textContent = 'Edit';
-    delBtn.innerHTML = 'Delete';
-    todoDivs.setAttribute('id', 'todoDiv');
-        todoDivs.classList.add('todos');
-        todoContent.appendChild(todoDivs);
-       // myTodos[0].dueDate = format(new Date(myTodos[0].dueDate), 'MM/dd/yyyy');
-        todoDivs.innerHTML = `<span>${userData[i].storage[0].title}</span>
-      <span>${userData[i].storage[0].description}</span>
-      <span>${userData[i].storage[0].dueDate}</span> <span>${userData[i].storage[0].project}</span>`;
-        todoDivs.appendChild(edit);
-        todoDivs.appendChild(delBtn);*/
       const newOption = document.createElement('option');
       const projectDiv = document.createElement('div');
       const projectDel = document.createElement('button');
@@ -407,7 +332,6 @@ export function component() {
       function removeProject(projectDiv) {
         if (projectDiv.parentNode) {
           projectDiv.parentNode.removeChild(projectDiv);
-          //newProject.removeName();
         }
       }
       projectDel.addEventListener('click', (e) => {
@@ -422,11 +346,8 @@ export function component() {
           if (selectOptions.options[i].textContent === projectDivText) {
             removeProject(projectDiv);
             selectOptions.remove(i);
-            //console.log(myProjects);
             myProjects.splice([projectToPop], 1);
             storeProjects();
-            //setName2(projectShowTodos);
-           // console.log(myProjects);
             i--;
             createProjectDivs();
           }
@@ -434,8 +355,6 @@ export function component() {
       });
 
       projectShowTodos.addEventListener('click', (e) => {
-        //setName2(projectShowTodos);
-        //projectDivVal.push(event.currentTarget.name);
         displayProjectTodos();
       });
     }
@@ -444,102 +363,82 @@ export function component() {
 
   function showTodos() {
     const userData = JSON.parse(localStorage.getItem('projectNames'));
-    
     if (userData === null) {
       return false;
     }
     for (let i = 0; i < userData.length; i++) {
-     
       if (userData[i].name !== myProjects[i].name) {
         continue;
       } else {
         for (let j = 0; j < userData[i].storage.length; j++) {
-         if (todoContent.firstChild === null 
+          if (todoContent.firstChild === null
             || document.getElementById('todoDiv').children.item(3).innerHTML === userData[i].name) {
-              myProjects[i].storage.push(userData[i].storage[j]);
-              const todoDivs = document.createElement('div');
-              const edit = document.createElement('button');
-              const delBtn = document.createElement('button');
-              delBtn.classList.add('delBtn');
-              edit.setAttribute('id', 'edit');
-              edit.setAttribute('value', j);
-              delBtn.setAttribute('value', j);
-              edit.textContent = 'Edit';
-              delBtn.innerHTML = 'Delete';
-              todoDivs.setAttribute('id', 'todoDiv');
-              todoDivs.classList.add('todos');
-                  todoContent.appendChild(todoDivs);
-                todoDivs.innerHTML = `<span>${userData[i].storage[j].title}</span>
+            myProjects[i].storage.push(userData[i].storage[j]);
+            const todoDivs = document.createElement('div');
+            const edit = document.createElement('button');
+            const delBtn = document.createElement('button');
+            delBtn.classList.add('delBtn');
+            edit.setAttribute('id', 'edit');
+            edit.setAttribute('value', j);
+            delBtn.setAttribute('value', j);
+            edit.textContent = 'Edit';
+            delBtn.innerHTML = 'Delete';
+            todoDivs.setAttribute('id', 'todoDiv');
+            todoDivs.classList.add('todos');
+            todoContent.appendChild(todoDivs);
+            userData[i].storage[j].dueDate = format(new Date(userData[i].storage[j].dueDate), 'MM/dd/yyyy');
+            todoDivs.innerHTML = `<span>${userData[i].storage[j].title}</span>
               <span>${userData[i].storage[j].description}</span>
               <span>${userData[i].storage[j].dueDate}</span> <span>${userData[i].storage[j].project}</span>`;
-              todoDivs.appendChild(edit);
-                  todoDivs.appendChild(delBtn);
-
-               
-
-                  edit.addEventListener('click', (e) => {
-                    projectDivVal.pop();
-                    projectDivVal.push(event.currentTarget.value);
-                    modalContent.removeChild(modalContent.lastElementChild);
-                    addTask.style.display = 'none';
-                    updateTask.style.display = 'block';
-                    modalContent.appendChild(updateTask);
-                    modal.style.display = 'block';
-                    editTodo(e);
-                  });
-
-                  delBtn.addEventListener('click', (e) => {
-                    projectDivVal.pop();
-                    projectDivVal.push(event.currentTarget.value);
-                    for (let i = 0; i < myProjects.length;) {
-                      if (document.getElementById('displayProjectBox').children[i].children[0].childNodes[0].data !== document.getElementById('todoContent').children[0].children[3].childNodes[0].data) {
-                        i++
-                      } else {
-                        projectDivVal.push(document.getElementById('displayProjectBox').children[i].children[1].attributes[0].value);
-                        removeTodos(todoDivs);
-                        createTodoDivs();
-                        return false;
-                      }
-                    }
-                  });
-              
+            todoDivs.appendChild(edit);
+            todoDivs.appendChild(delBtn);
+            edit.addEventListener('click', (e) => {
+              projectDivVal.pop();
+              projectDivVal.push(event.currentTarget.value);
+              modalContent.removeChild(modalContent.lastElementChild);
+              addTask.style.display = 'none';
+              updateTask.style.display = 'block';
+              modalContent.appendChild(updateTask);
+              modal.style.display = 'block';
+              editTodo(e);
+            });
+            delBtn.addEventListener('click', (e) => {
+              projectDivVal.pop();
+              projectDivVal.push(event.currentTarget.value);
+              for (let i = 0; i < myProjects.length;) {
+                if (document.getElementById('displayProjectBox').children[i].children[0].childNodes[0].data !== document.getElementById('todoContent').children[0].children[3].childNodes[0].data) {
+                  i++
+                } else {
+                  projectDivVal.push(document.getElementById('displayProjectBox').children[i].children[1].attributes[0].value);
+                  removeTodos(todoDivs);
+                  createTodoDivs();
+                  return false;
+                }
+              }
+            });
           } else if (userData[i].name !== document.getElementById('todoDiv').children.item(3).innerHTML) {
             myProjects[i].storage.push(userData[i].storage[j]);
             continue;
           }
-
-            
         }
-        
       }
-     
     }
   }
 
-
   function storeProjects() {
-    //for (let i = 0; i < myProjects.length; i++) {
     localStorage.setItem('projectNames', JSON.stringify(myProjects));
-
-    // }
   }
 
-/// LOCAL STORAGE FUNCTIONS
-
+  /// LOCAL STORAGE FUNCTIONS
   function displayProjectTodos(e) {
     clearContent(todoContent);
     let value = parseFloat(event.currentTarget.value);
-    //let values2 = parseFloat(projectDivVal);
     projectDivVal.pop();
-    // projectDivVal.push(values);
-    //console.log(values); 
     for (let i = 0; i < myProjects[value].storage.length; i++) {
       const todoDivs = document.createElement('div');
       const edit = document.createElement('button');
       const delBtn = document.createElement('button');
       todoDivs.setAttribute('id', 'todoDiv');
-      //todoDivs.classList.add('todos');
-     //todoContent.appendChild(todoDivs);
       todoContent.setAttribute('value', i);
       todoContent.appendChild(todoDivs);
       myProjects[value].storage[i].dueDate = format(new Date(myProjects[value].storage[i].dueDate), 'MM/dd/yyyy');
@@ -548,13 +447,12 @@ export function component() {
         <span>${myProjects[value].storage[i].dueDate}</span> <span>${myProjects[value].storage[i].project}</span>`;
       todoDivs.appendChild(edit);
       todoDivs.appendChild(delBtn);
-      //todoDivs.setAttribute('id', 'todoDiv');
-      //todoDivs.setAttribute('data-book', i);
       edit.textContent = 'Edit';
       delBtn.textContent = 'Delete';
       setAttr(edit);
       setAttr(delBtn);
       console.log(myProjects);
+      activeProject()
       edit.addEventListener('click', () => {
         projectDivVal.pop();
         projectDivVal.push(event.currentTarget.value);
@@ -565,7 +463,6 @@ export function component() {
         modal.style.display = 'block';
         editTodo();
       });
-
       delBtn.addEventListener('click', (e) => {
         projectDivVal.pop();
         projectDivVal.push(event.currentTarget.value);
@@ -579,21 +476,16 @@ export function component() {
             return false;
           }
         }
-        //console.log(document.getElementById('todoContent').children[0].children[3].childNodes[0].data);
-        //console.log(document.getElementById('displayProjectBox').children[0].children[1].attributes[0].value);
-
       });
     }
   }
 
   window.addEventListener('load', () => {
-   
-    
     createOption();
-    
     createProjectDivs();
     showProjects();
     showTodos();
+    activeProject()
   });
 
   const modal = document.getElementById('myModal');
@@ -601,10 +493,9 @@ export function component() {
   const btn = document.getElementById('popModule');
 
   btn.addEventListener('click', () => {
-   // modalContent.removeChild(modalContent.lastElementChild);
-   document.getElementById('taskTitle').value = '';
-   document.getElementById('description').value = '';
-   document.getElementById('taskDate').value = '';
+    document.getElementById('taskTitle').value = '';
+    document.getElementById('description').value = '';
+    document.getElementById('taskDate').value = '';
     modalContent.appendChild(addTask);
     updateTask.style.display = 'none';
     addTask.style.display = 'block';
@@ -619,10 +510,8 @@ export function component() {
     remove();
     if (todoDivs) {
       todoDivs.parentNode.removeChild(todoDivs);
-      //createTodoDivs();
     }
   }
-
   function remove() {
     // projectDivVal.unshift(projectDivVal.pop());
     let value = event.currentTarget.value;
@@ -653,15 +542,9 @@ export function component() {
 
   const myValues = [];
   function editTodo(e) {
-    //setName(edit);
     let value = event.currentTarget.value;
     let values = parseFloat(value);
-    //let value2 = parseFloat(projectDivVal);
-    // let todoIndex = parseFloat(document.getElementById("todoContent").childNodes[values]);
     myValues.push(values);
-    //const newTodo = new Todo(tdValue);
-    //newTodo.storeData();
-    //console.log(myTodos);
     for (let i = 0; i < myProjects.length;) {
       if (!myProjects[i] || myProjects[i].name !== document.getElementById('todoDiv').children.item(3).innerHTML) {
         i++
@@ -686,8 +569,6 @@ export function component() {
   })
 
   function updateTodo() {
-    //myTodos.pop();
-    //let colection = document.getElementById('todoContent').childNodes.length;
     let e = document.getElementById('select');
     if (document.getElementById('taskTitle').value === ''
       || document.getElementById('description').value === ''
@@ -695,16 +576,9 @@ export function component() {
       || e.options[e.selectedIndex].text === 'Choose --Project') {
       return false;
     }
-    //smodalContent.removeChild(modalContent.lastElementChild);
     modal.style.display = 'none';
-    //let childValues = document.querySelectorAll('.todos');
-   // console.log(childValues.childNodes);
     myValues.unshift(myValues.pop());
     let value = parseFloat(myValues);
-    //let value2 = parseFloat(projectDivVal);
-    //let todos = document.getElementById('todoContent').children;
-    //console.log(todos);
-    //console.log(todos[2].textContent);
     let title = document.getElementById('taskTitle').value;
     let description = document.getElementById('description').value;
     let dueDate = document.getElementById('taskDate').value;
@@ -717,10 +591,6 @@ export function component() {
     edit.setAttribute('id', 'edit');
     edit.textContent = 'Edit';
     delBtn.innerHTML = 'Delete';
-    /*edit.addEventListener('click', () => {
-      modalContent.removeChild(modalContent.lastElementChild);
-      modalContent.appendChild(updateTask);
-      modal.style.display = 'block';*/
     edit.addEventListener('click', (e) => {
       projectDivVal.pop();
       projectDivVal.push(event.currentTarget.value);
@@ -740,48 +610,35 @@ export function component() {
           projectDivVal.push(document.getElementById('displayProjectBox').children[i].children[1].attributes[0].value);
           removeTodos(todoDivs);
           createTodoDivs();
+          
           return false;
         }
       }
     });
 
-    //delBtn.addEventListener('click', () => {
-    //  removeTodos(todoDivs);
-    // });
     for (let i = 0; i < myProjects.length;) {
       if (myTodos[0].project !== myProjects[i].name) {
         i++
       } else if (todoContent.firstChild === null
         || document.getElementById('todoDiv').children.item(3).innerHTML === e.options[e.selectedIndex].text) {
-        //let value = parseFloat(projectDivVal);
         myProjects[i].storage.splice([value], 1, myTodos[0]);
         storeProjects();
-        // const projectdivTexts = document.getElementById('projectDiv');
-        //removeTodos(todoDivs);
         todoDivs.setAttribute('id', 'todoDiv');
-
         todoDivs = document.getElementById("todoContent").childNodes[value];
         myTodos[0].dueDate = format(new Date(myTodos[0].dueDate), 'MM/dd/yyyy');
-        //todoContent.appendChild(todoDivs);
         todoDivs.innerHTML = `<span>${myTodos[0].title}</span>
        <span>${myTodos[0].description}</span>
        <span>${myTodos[0].dueDate}</span> <span>${myTodos[0].project}</span>`;
         todoDivs.appendChild(edit);
         todoDivs.appendChild(delBtn);
-        // todoContent.appendChild(todoDivs);
-        //todoDivs.appendChild(todoDiv);
-        //edit.setAttribute('value', i);
         newTodo.deleteData();
-        //console.log(myProjects[i].storage.length);
         document.getElementById('taskTitle').value = '';
         document.getElementById('description').value = '';
         document.getElementById('taskDate').value = '';
         edit.setAttribute('value', value);
         delBtn.setAttribute('value', value);
-        //setAttr(edit);
-        // setAttr(delBtn)
-        //setAtr(todoDivs);
         myValues.pop();
+        activeProject()
         return false;
       } else {
         clearContent(todoContent);
@@ -794,7 +651,6 @@ export function component() {
        <span>${myTodos[0].description}</span>
        <span>${myTodos[0].dueDate}</span> <span>${myTodos[0].project}</span>`;
         todoDivs.appendChild(edit);
-        //edit.setAttribute('value', i);
         newTodo.deleteData();
         console.log(myProjects[i].storage.length);
         document.getElementById('taskTitle').value = '';
@@ -803,13 +659,13 @@ export function component() {
         setAttr(edit);
         setAttr(delBtn);
         setAtr(todoDivs);
+        activeProject()
         return false;
       }
     }
   }
 
   function displayTodos() {
-    //console.log(myProjects)
     let e = document.getElementById('select');
     if (document.getElementById('taskTitle').value === ''
       || document.getElementById('description').value === ''
@@ -824,9 +680,6 @@ export function component() {
     let project = e.options[e.selectedIndex].text;
     const newTodo = new Todo(title, description, dueDate, project);
     newTodo.storeData();
-    //storeProjects();
-    //formatDistance(subDays(new Date(), 3), new Date(), { addSuffix: true });
-
     const todoDivs = document.createElement('div');
     const edit = document.createElement('button');
     const delBtn = document.createElement('button');
@@ -854,12 +707,10 @@ export function component() {
           projectDivVal.push(document.getElementById('displayProjectBox').children[i].children[1].attributes[0].value);
           removeTodos(todoDivs);
           createTodoDivs();
+          activeProject()
           return false;
         }
       }
-     // console.log(document.getElementById('todoContent').children[0].children[3].childNodes[0].data);
-    //  console.log(document.getElementById('displayProjectBox').children[0].children[1].attributes[0].value);
-
     });
     for (let i = 0; i < myProjects.length;) {
       if (myTodos[0].project !== myProjects[i].name) {
@@ -868,9 +719,7 @@ export function component() {
         || document.getElementById('todoDiv').children.item(3).innerHTML === e.options[e.selectedIndex].text) {
         myProjects[i].storage.push(myTodos[0]);
         storeProjects();
-        // const projectdivTexts = document.getElementById('projectDiv');
         todoDivs.setAttribute('id', 'todoDiv');
-        //todoDivs.classList.add('todos');
         todoContent.appendChild(todoDivs);
         myTodos[0].dueDate = format(new Date(myTodos[0].dueDate), 'MM/dd/yyyy');
         todoDivs.innerHTML = `<span>${myTodos[0].title}</span>
@@ -878,16 +727,13 @@ export function component() {
       <span>${myTodos[0].dueDate}</span> <span>${myTodos[0].project}</span>`;
         todoDivs.appendChild(edit);
         todoDivs.appendChild(delBtn);
-        //edit.setAttribute('value', i);
         newTodo.deleteData();
-        //console.log(myProjects[i].storage.length);
         document.getElementById('taskTitle').value = '';
         document.getElementById('description').value = '';
         document.getElementById('taskDate').value = '';
         setAttr(edit);
-        setAttr(delBtn)
-        // setAttr2(todoDivs);
-        //console.log(projectDivVal);
+        setAttr(delBtn);
+        activeProject()
         return false;
       } else if (myProjects[i].storage.length > 0) {
         myProjects[i].storage.push(myTodos[0]);
@@ -896,11 +742,10 @@ export function component() {
         document.getElementById('taskTitle').value = '';
         document.getElementById('description').value = '';
         document.getElementById('taskDate').value = '';
-        //let projectDivVal = [];
         projectDivVal.length = 0;
         projectDivVal.push(i);
-        //console.log(projectDivVal);
         createTodoDivs2();
+        activeProject()
         return false;
       } else {
         clearContent(todoContent);
@@ -914,21 +759,29 @@ export function component() {
       <span>${myTodos[0].dueDate}</span> <span>${myTodos[0].project}</span>`;
         todoDivs.appendChild(edit);
         todoDivs.appendChild(delBtn);
-        //edit.setAttribute('value', i);
         newTodo.deleteData();
-        //console.log(myProjects[i].storage.length);
         document.getElementById('taskTitle').value = '';
         document.getElementById('description').value = '';
         document.getElementById('taskDate').value = '';
         setAttr(edit);
-        setAttr(delBtn)
-       // console.log(myProjects);
-       // console.log(projectDivVal);
+        setAttr(delBtn);
+        activeProject();
         return false;
       }
     }
   }
 
+  function activeProject() {
+   const childrens = document.getElementById('displayProjectBox').childNodes
+    for (let i = 0; i < childrens.length; i++)
+    if (document.getElementById('todoDiv').children.item(3).innerHTML === childrens[i].children.item(0).innerHTML) {
+      childrens[i].style.backgroundColor = 'green';
+      childrens[i].style.border = '2px solid black'
+    } else if (document.getElementById('todoDiv').children.item(3).innerHTML !== childrens[i].children.item(0).innerHTML || document.getElementById('todoDiv') === null) {
+      childrens[i].style.backgroundColor = 'transparent';
+      childrens[i].style.border = '1px solid white'
+    }
+   }
 
   addTask.addEventListener('click', () => {
     displayTodos();
@@ -951,16 +804,6 @@ export function component() {
     }
   }
 
-
-
-  /*function setAttr2(todoDivs) {
-    let element = document.getElementById('todoContent');
-    let children = element.children;
-    for(let i = 0; i < children.length; i++) {
-      todoDivs.setAttribute('value', i);
-    }
-  }*/
-
   function setAttr(delBtn) {
     let element = document.getElementById('todoContent');
     let children = element.children;
@@ -971,16 +814,11 @@ export function component() {
   const newProject = new Project();
   const newTodo = new Todo();
 
-  
-
-  // testProject.innerHTML = 'Test Project';
-
-  /* testProject.addEventListener('click', () => {
-     newTodo.deleteData();
-   });*/
   return container;
 }
 
 document.body.appendChild(component());
+
+
 
 export default component;
