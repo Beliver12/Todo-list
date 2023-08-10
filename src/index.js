@@ -237,6 +237,7 @@ export function component() {
   function createProjectDivs() {
     clearSidebar(displayProjectBox);
     for (let i = 0; i < myProjects.length; i++) {
+      activeProject()
       const projectDiv = document.createElement('div');
       const projectDel = document.createElement('button');
       const projectShowTodos = document.createElement('button');
@@ -434,7 +435,11 @@ export function component() {
     clearContent(todoContent);
     let value = parseFloat(event.currentTarget.value);
     projectDivVal.pop();
+    if (myProjects[value].storage.length === 0) {
+      activeProject()
+    }
     for (let i = 0; i < myProjects[value].storage.length; i++) {
+      
       const todoDivs = document.createElement('div');
       const edit = document.createElement('button');
       const delBtn = document.createElement('button');
@@ -451,7 +456,6 @@ export function component() {
       delBtn.textContent = 'Delete';
       setAttr(edit);
       setAttr(delBtn);
-      console.log(myProjects);
       activeProject()
       edit.addEventListener('click', () => {
         projectDivVal.pop();
@@ -770,14 +774,17 @@ export function component() {
       }
     }
   }
-
+  
   function activeProject() {
-   const childrens = document.getElementById('displayProjectBox').childNodes
+   const childrens = document.getElementById('displayProjectBox').childNodes;
     for (let i = 0; i < childrens.length; i++)
-    if (document.getElementById('todoDiv').children.item(3).innerHTML === childrens[i].children.item(0).innerHTML) {
+    if (document.getElementById('todoDiv') === null ) {
+      childrens[i].style.backgroundColor = 'transparent';
+      childrens[i].style.border = '1px solid white'
+    } else if (document.getElementById('todoDiv').children.item(3).innerHTML === childrens[i].children.item(0).innerHTML) {
       childrens[i].style.backgroundColor = 'green';
-      childrens[i].style.border = '2px solid black'
-    } else if (document.getElementById('todoDiv').children.item(3).innerHTML !== childrens[i].children.item(0).innerHTML || document.getElementById('todoDiv') === null) {
+  childrens[i].style.border = '2px solid black';
+    } else if(document.getElementById('todoDiv').children.item(3).innerHTML !== childrens[i].children.item(0).innerHTML) {
       childrens[i].style.backgroundColor = 'transparent';
       childrens[i].style.border = '1px solid white'
     }
