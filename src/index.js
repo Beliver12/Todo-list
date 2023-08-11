@@ -13,15 +13,17 @@ export function component() {
 
   //sidebar DOM ====>
   const sidebar = document.createElement('div');
-  const createProjectBox = document.createElement('div');
-  const addProject = document.createElement('button');
+  const createProjectBox = document.createElement('form');
+  const addProject = document.createElement('input');
   const projectBox = document.createElement('input');
   const displayProjectBox = document.createElement('div');
   //attributes ====>
   sidebar.setAttribute('id', 'sidebar');
   createProjectBox.setAttribute('id', 'createProjectBox');
   addProject.setAttribute('id', 'addProject');
+  addProject.setAttribute('type', 'submit');
   projectBox.setAttribute('id', 'projectBox');
+  projectBox.setAttribute('type', 'text');
   projectBox.setAttribute('required', 'true');
   displayProjectBox.setAttribute('id', 'displayProjectBox');
   //<==== attributes
@@ -32,14 +34,14 @@ export function component() {
   const todoContent = document.createElement('div');
   todoContent.setAttribute('id', 'todoContent');
   const createModal = document.createElement('div');
-  const modalContent = document.createElement('div');
+  const modalContent = document.createElement('form');
   const popModule = document.createElement('button');
   const tabs = document.createElement('div');
   const titleTab = document.createElement('span');
   const descriptionTab = document.createElement('span');
   const dateTab = document.createElement('span');
   const projectTab = document.createElement('span');
-  const addTask = document.createElement('button');
+  const addTask = document.createElement('input');
   const updateTask = document.createElement('button');
   const exitModule = document.createElement('span');
   const taskTitle = document.createElement('input');
@@ -49,6 +51,7 @@ export function component() {
   const taskDescription = document.createElement('textarea');
   //attributes ====>
   content.setAttribute('id', 'content');
+  taskPriority.setAttribute('required', 'true');
   taskTitle.setAttribute('id', 'taskTitle');
   taskTitle.setAttribute('placeholder', 'Title');
   taskTitle.setAttribute('required', 'true');
@@ -56,6 +59,7 @@ export function component() {
   taskDate.setAttribute('type', 'date');
   taskDate.setAttribute('required', 'true');
   addTask.setAttribute('id', 'addTask');
+  addTask.setAttribute('type', 'submit');
   createModal.setAttribute('id', 'myModal');
   modalContent.setAttribute('id', 'modal-content');
   popModule.setAttribute('id', 'popModule');
@@ -63,7 +67,7 @@ export function component() {
   taskDescription.setAttribute('placeholder', 'Description');
   taskDescription.setAttribute('id', 'description');
   taskDescription.setAttribute('required', 'true');
-  priorityOption.setAttribute('id', 'priorityOption');
+  priorityOption.setAttribute('id', 'newOption');
   taskPriority.setAttribute('id', 'select');
   //<====attributes
 
@@ -109,7 +113,7 @@ export function component() {
   projectTab.innerHTML = 'PROJECT';
 
   title.innerHTML = 'TODO-List';
-  addProject.innerHTML = 'Add-Project';
+  //addProject.innerHTML = 'Add-Project';
   addTask.innerHTML = 'Add-Tasks';
   updateTask.innerHTML = 'Update';
   priorityOption.innerHTML = 'Choose --Project';
@@ -121,6 +125,7 @@ export function component() {
       const newOption = document.createElement('option');
       taskPriority.appendChild(newOption);
       newOption.setAttribute('id', 'newOption');
+      newOption.setAttribute('value', myProjects[i].name);
       newOption.innerHTML = myProjects[i].name;
     }
   }
@@ -673,8 +678,11 @@ export function component() {
     let e = document.getElementById('select');
     if (document.getElementById('taskTitle').value === ''
       || document.getElementById('description').value === ''
-      || document.getElementById('taskDate').value === ''
-      || e.options[e.selectedIndex].text === 'Choose --Project') {
+      || document.getElementById('taskDate').value === '') {
+      return false;
+    } else if (e.options[e.selectedIndex].text === 'Choose --Project') {
+      event.preventDefault()
+      alert('You must pick project');
       return false;
     }
     modal.style.display = 'none';
@@ -790,7 +798,7 @@ export function component() {
     }
    }
 
-  addTask.addEventListener('click', () => {
+  addTask.addEventListener('click', (e) => {
     displayTodos();
   });
 
