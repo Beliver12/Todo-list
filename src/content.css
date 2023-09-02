@@ -1,76 +1,75 @@
 @font-face {
-    font-family: 'Barber-Complete';
-    src: url('./Barber-Fill.woff2') format('woff2'),
-      url('./Barber-Fill.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
-  }
-
-#content{
-    grid-row: 2/3;
-    display: grid;
-    grid-template-rows: 60px 60px;
-    font-weight: 200;
+  font-family: "Barber-Complete";
+  src:
+    url("./Barber-Fill.woff2") format("woff2"),
+    url("./Barber-Fill.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
 }
 
-#tabs{
-    height: 60px;
-    width: 1000px;
-    display: flex;
-    justify-content: space-between;
-    margin-left: 10px;
-    
+#content {
+  grid-row: 2/3;
+  display: grid;
+  grid-template-rows: 60px 60px;
+  font-weight: 200;
+}
+
+#tabs {
+  height: 60px;
+  width: 1000px;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 10px;
 }
 
 #tabs > span {
-    height: 20px;
-    padding: 6px;
-    background-color: transparent;
-    color: white;
-    border: 1px solid white;
-    font-family: 'Barber-Complete';
+  height: 20px;
+  padding: 6px;
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  font-family: "Barber-Complete";
 }
 
-#tabs > span:hover{
-    background-color: black;
+#tabs > span:hover {
+  background-color: black;
 }
 
-#todoDiv{
-    border: 1px solid black;
-    font-family: 'Barber-Complete';
+#todoDiv {
+  border: 1px solid black;
+  font-family: "Barber-Complete";
 }
-
 
 #content > div > #taskTitle {
-    width: 60%;
+  width: 60%;
 }
 
-textarea{
-    padding: 0px;
-    height: 30%;
+textarea {
+  padding: 0px;
+  height: 30%;
 }
 
 #myModal {
-    display: none; 
-    position: fixed; 
-    z-index: 1; 
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0,0.4); 
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 #modal-content {
-    background-image: url(/src/pexels-brakou-abdelghani-1723637.jpg);
-    background-size:700px;
-    background-repeat: no-repeat;
-  margin: 15% auto; 
+  background-image: url(/src/pexels-brakou-abdelghani-1723637.jpg);
+  background-size: 700px;
+  background-repeat: no-repeat;
+  margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 30%; 
+  width: 30%;
   height: 50%;
   display: flex;
   flex-direction: column;
@@ -79,48 +78,54 @@ textarea{
 }
 
 #modal-content > span {
-    color: white;
+  color: white;
 }
 
-#modal-content > input, textarea, select, button, option {
-    background-color: transparent;
-    font-family: 'Barber-Complete';
-    color: white;
+#modal-content > input,
+textarea,
+select,
+button,
+option {
+  background-color: transparent;
+  font-family: "Barber-Complete";
+  color: white;
 }
 
-select > option{
-    background-color: black;
+select > option {
+  background-color: black;
 }
 
-#popModule{
-    width: 100px;
-    height: 50px;
-    justify-self: center;
-    background-color: transparent;
-    color: white;
-    border: 1px solid white;
-    font-family: 'Barber-Complete';
+#popModule {
+  width: 100px;
+  height: 50px;
+  justify-self: center;
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  font-family: "Barber-Complete";
 }
 
-#todoDiv > span, #todoDiv > button{
-    background-color: transparent;
-    color: white;
-    border: 1px solid white;
-    font-family: 'Barber-Complete';
+#todoDiv > span,
+#todoDiv > button {
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  font-family: "Barber-Complete";
 }
 
-#todoDiv{
-    display: flex;
-    justify-content: space-between;
-    background-color: transparent;
-    color: white;
-    border: 1px solid white;
+#todoDiv {
+  display: flex;
+  justify-content: space-between;
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
 }
 
-#content > button:hover, #todoDiv:hover{
-    background-color: black;
+#content > button:hover,
+#todoDiv:hover {
+  background-color: black;
 }
 
 #todoDiv > button:hover {
-    background-color: blue;
+  background-color: blue;
 }

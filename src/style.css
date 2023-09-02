@@ -1,32 +1,27 @@
-#header{
-    display: flex;
-    justify-content: center;
-    border-bottom: 3px solid white;
-    grid-column: 1/3;
-    font-family: 'Barber-Complete';
+#header {
+  display: flex;
+  justify-content: center;
+  border-bottom: 3px solid white;
+  grid-column: 1/3;
+  font-family: "Barber-Complete";
 }
 
-
-#footer{
-    height: 7vh;
-    width: 76.4vw;
-    border-top: 3px solid white;
-    justify-self: right;
-    grid-row: 3/4;
+#footer {
+  height: 7vh;
+  width: 76.4vw;
+  border-top: 3px solid white;
+  justify-self: right;
+  grid-row: 3/4;
 }
 
-#container{
-    display: grid;
-    grid-template-columns: 20vw 1fr;
-    grid-template-rows: 10vh 1fr 7vh;
-   
+#container {
+  display: grid;
+  grid-template-columns: 20vw 1fr;
+  grid-template-rows: 10vh 1fr 7vh;
 }
 
-body{
-    background-image: url(/src/pexels-pixabay-33545.jpg);
-    background-repeat: no-repeat;
+body {
+  background-image: url(/src/pexels-pixabay-33545.jpg);
+  background-repeat: no-repeat;
   background-size: 2000px;
 }
-
-
-

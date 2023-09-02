@@ -1,54 +1,53 @@
-
-#sidebar{
-    border-right: 3px solid white;
-    height: 90vh;
-    grid-row: 2/4;
-    grid-column: 1/2;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    font-family: 'Barber-Complete';
+#sidebar {
+  border-right: 3px solid white;
+  height: 90vh;
+  grid-row: 2/4;
+  grid-column: 1/2;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  font-family: "Barber-Complete";
 }
 
-
-#createProjectBox > input, #createProjectBox > button{
-    border-radius: 10px;
-    background-color: transparent;
-    color: white;
-    border: 1px solid white;
-    margin-top: 10px;
-    font-family: 'Barber-Complete';
+#createProjectBox > input,
+#createProjectBox > button {
+  border-radius: 10px;
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  margin-top: 10px;
+  font-family: "Barber-Complete";
 }
 
-#displayProjectBox{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+#displayProjectBox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-
-#projectDiv{
-    background-color: none;
-    border: 1px solid white;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    border-radius: 16px;
-    height: 22px;
-    align-items: center;
+#projectDiv {
+  background-color: none;
+  border: 1px solid white;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 16px;
+  height: 22px;
+  align-items: center;
 }
 #projectDiv > button {
-    border-radius: 16px;
-    background-color: transparent;
-    border: 1px solid white;
-    color: white;
-    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.6);
-    font-family: 'Barber-Complete';
+  border-radius: 16px;
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.6);
+  font-family: "Barber-Complete";
 }
 #projectDiv > span {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
-#createProjectBox > button:hover, #projectDiv > button:hover{
-    background-color: black;
+#createProjectBox > button:hover,
+#projectDiv > button:hover {
+  background-color: black;
 }
